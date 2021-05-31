@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+        <ion-title>
+            รถตัดหญ้าบังคับระยะไกล
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div id="container">
+        <ion-list>
+            <ion-item *ngIf="connection">
+                <ion-label>สถานะ</ion-label>
+                <ion-text slot="end" color="success">กำลังเชื่อมต่อ</ion-text>
+            </ion-item>
+            <ion-item *ngIf="!connection">
+                <ion-label>สถานะ</ion-label>
+                <ion-text slot="end" color="danger">ไม่ได้เชื่อมต่อ</ion-text>
+                <ion-buttons slot="end">
+                    <ion-button color="danger" (click)="GetConnect()">
+                        <ion-icon slot="icon-only" name="reload-circle-sharp"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+            <ion-item>
+                <ion-label>เครื่องตัดหญ้า</ion-label>
+                <ion-toggle [(ngModel)]="mower" (ionChange)="Mowen()"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-range min="0" max="90" step="2" pin="true" snaps="true" color="primary" (ionChange)="MowenSpin()" [(ngModel)]="mower_spin">
+                    <ion-icon slot="start" name="arrow-down-outline"></ion-icon>
+                    <ion-icon slot="end" name="arrow-up-outline"></ion-icon>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+        <ion-grid style="padding: 0px 30px;">
+            <ion-row>
+                <ion-col size="4">
+                </ion-col>
+                <ion-col size="4">
+                    <ion-button class="btn-move" [color]="action=='go' ? 'danger':'primary'" expand="full" (touchstart)="GetSend('go')" (touchend)="GetSend('stop')">
+                        <ion-icon name="arrow-up-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="4">
+                    <ion-button class="btn-move" [color]="action=='left' ? 'danger':'primary'" expand="full" (touchstart)="GetSend('left')" (touchend)="GetSend('stop')">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="4"></ion-col>
+                <ion-col size="4">
+                    <ion-button class="btn-move" [color]="action=='right' ? 'danger':'primary'" expand="full" (touchstart)="GetSend('right')" (touchend)="GetSend('stop')">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="4">
+                </ion-col>
+                <ion-col size="4">
+                    <ion-button class="btn-move" [color]="action=='back' ? 'danger':'primary'" expand="full" (touchstart)="GetSend('back')" (touchend)="GetSend('stop')">
+                        <ion-icon name="arrow-down-outline"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
